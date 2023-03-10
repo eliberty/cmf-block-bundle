@@ -18,10 +18,7 @@ use Sonata\BlockBundle\Model\BlockInterface;
  */
 class ReferenceBlock extends AbstractBlock
 {
-    /**
-     * @var BlockInterface
-     */
-    private $referencedBlock;
+    private ?\Sonata\BlockBundle\Model\BlockInterface $referencedBlock = null;
 
     /**
      * {@inheritdoc}

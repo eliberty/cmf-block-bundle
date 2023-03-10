@@ -25,14 +25,11 @@ class CmfBlockHelper extends Helper
     /**
      * @var SonataBlockHelper
      */
-    private $sonataBlock;
+    private SonataBlockHelper $sonataBlock;
 
-    private $parser;
+    private \Symfony\Cmf\Bundle\BlockBundle\Templating\Helper\EmbedBlocksParser $parser;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private ?\Psr\Log\LoggerInterface $logger = null;
 
     public function __construct(SonataBlockHelper $sonataBlock, EmbedBlocksParser $parser, LoggerInterface $logger = null)
     {
@@ -53,9 +50,7 @@ class CmfBlockHelper extends Helper
     {
         return $this->parser->parse(
             $text,
-            function ($id) {
-                return $this->embeddedRender($id);
-            }
+            fn($id) => $this->embeddedRender($id)
         );
     }
 

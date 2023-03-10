@@ -35,13 +35,13 @@ final class CmfBlockExtension extends Extension implements PrependExtensionInter
                 ],
                 'blocks_by_class' => [
                     0 => [
-                        'class' => 'Symfony\\Cmf\\Bundle\\BlockBundle\\Doctrine\\Phpcr\\RssBlock',
+                        'class' => \Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock::class,
                         'settings' => [
                             'title' => 'Insert the rss title',
                             'url' => false,
                             'maxItems' => 10,
                             'template' => '@CmfBlock/Block/block_rss.html.twig',
-                            'itemClass' => 'Symfony\\Cmf\\Bundle\\BlockBundle\\Model\\FeedItem',
+                            'itemClass' => \Symfony\Cmf\Bundle\BlockBundle\Model\FeedItem::class,
                         ],
                     ],
                 ],

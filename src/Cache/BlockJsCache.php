@@ -245,7 +245,7 @@ CONTENT
         }
     })();
 JS
-, $this->dashify($block->getId()), json_encode($response->getContent())));
+, $this->dashify($block->getId()), json_encode($response->getContent(), JSON_THROW_ON_ERROR)));
 
         $response->headers->set('Content-Type', 'application/javascript');
 

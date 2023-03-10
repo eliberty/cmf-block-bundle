@@ -30,10 +30,7 @@ class FeedItem implements ItemInterface
      */
     private $link;
 
-    /**
-     * @var \DateTime
-     */
-    private $pubDate;
+    private ?\DateTime $pubDate = null;
 
     /**
      * This method sets feed item title.

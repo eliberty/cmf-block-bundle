@@ -50,17 +50,12 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      */
     protected $managerRegistry;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $publishWorkflowChecker;
+    private \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $publishWorkflowChecker;
 
     /**
      * The permission to check for when doing the publish workflow check.
-     *
-     * @var string
      */
-    private $publishWorkflowPermission = PublishWorkflowChecker::VIEW_ATTRIBUTE;
+    private string $publishWorkflowPermission = PublishWorkflowChecker::VIEW_ATTRIBUTE;
 
     /**
      * @var string service id of the empty block service

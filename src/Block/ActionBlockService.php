@@ -22,10 +22,7 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 class ActionBlockService extends AbstractBlockService
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private \Symfony\Component\HttpFoundation\RequestStack $requestStack;
 
     /**
      * @var FragmentHandler
