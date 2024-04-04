@@ -33,18 +33,7 @@ final class CmfBlockExtension extends Extension implements PrependExtensionInter
                 'templates' => [
                     'block_base' => '@CmfBlock/Block/block_base.html.twig',
                 ],
-                'blocks_by_class' => [
-                    0 => [
-                        'class' => \Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\RssBlock::class,
-                        'settings' => [
-                            'title' => 'Insert the rss title',
-                            'url' => false,
-                            'maxItems' => 10,
-                            'template' => '@CmfBlock/Block/block_rss.html.twig',
-                            'itemClass' => \Symfony\Cmf\Bundle\BlockBundle\Model\FeedItem::class,
-                        ],
-                    ],
-                ],
+                'blocks_by_class' => [],
             ];
             $container->prependExtensionConfig('sonata_block', $config);
         }
@@ -67,8 +56,6 @@ final class CmfBlockExtension extends Extension implements PrependExtensionInter
         if ($config['persistence']['phpcr']['enabled']) {
             $this->loadPhpcr($config['persistence']['phpcr'], $loader, $container);
         }
-
-        $this->loadSonataCache($config, $loader, $container);
     }
 
     private function loadPhpcr(array $config, XmlFileLoader $loader, ContainerBuilder $container)
@@ -103,35 +90,6 @@ final class CmfBlockExtension extends Extension implements PrependExtensionInter
         }
     }
 
-    private function loadSonataCache(array $config, XmlFileLoader $loader, ContainerBuilder $container)
-    {
-        $bundles = $container->getParameter('kernel.bundles');
-
-        if (!isset($bundles['SonataCacheBundle'])) {
-            return;
-        }
-
-        $loader->load('cache.xml');
-
-        if (isset($config['caches']['varnish'])) {
-            $container
-                ->getDefinition('cmf.block.cache.varnish')
-                ->replaceArgument(0, $config['caches']['varnish']['token'])
-                ->replaceArgument(6, $config['caches']['varnish']['servers'])
-                ->replaceArgument(7, 3 === $config['caches']['varnish']['version'] ? 'ban' : 'purge');
-        } else {
-            $container->removeDefinition('cmf.block.cache.varnish');
-        }
-
-        if (isset($config['caches']['ssi'])) {
-            $container
-                ->getDefinition('cmf.block.cache.ssi')
-                ->replaceArgument(0, $config['caches']['ssi']['token'])
-            ;
-        } else {
-            $container->removeDefinition('cmf.block.cache.ssi');
-        }
-    }
 
     /**
      * Returns the base path for the XSD files.

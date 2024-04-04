@@ -11,7 +11,8 @@
 
 namespace Symfony\Cmf\Bundle\BlockBundle\Block;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 use Sonata\BlockBundle\Block\BlockLoaderInterface;
 use Sonata\BlockBundle\Exception\BlockNotFoundException;
@@ -30,37 +31,21 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class PhpcrBlockLoader implements BlockLoaderInterface
 {
-    /**
-     * @var RequestStack
-     */
-    protected $requestStack;
 
-    /**
-     * @var null|LoggerInterface
-     */
-    protected $logger;
+    protected RequestStack $requestStack;
 
-    /**
-     * @var string Name of object manager to use
-     */
-    protected $managerName;
+    protected ?LoggerInterface $logger;
 
-    /**
-     * @var ManagerRegistry
-     */
-    protected $managerRegistry;
+    protected string $managerName;
+
+    protected ManagerRegistry $managerRegistry;
 
     private \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $publishWorkflowChecker;
 
-    /**
-     * The permission to check for when doing the publish workflow check.
-     */
     private string $publishWorkflowPermission = PublishWorkflowChecker::VIEW_ATTRIBUTE;
 
-    /**
-     * @var string service id of the empty block service
-     */
-    protected $emptyBlockType;
+
+    protected ?string $emptyBlockType;
 
     /**
      * @param ManagerRegistry          $managerRegistry
@@ -76,7 +61,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
         AuthorizationCheckerInterface $publishWorkflowChecker,
         RequestStack $requestStack,
         LoggerInterface $logger = null,
-        $emptyBlockType = null
+        ?string $emptyBlockType = null
     ) {
         $this->managerRegistry = $managerRegistry;
         $this->publishWorkflowChecker = $publishWorkflowChecker;
@@ -91,7 +76,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      *
      * @param string $managerName
      */
-    public function setManagerName($managerName)
+    public function setManagerName($managerName): void
     {
         $this->managerName = $managerName;
     }
@@ -102,7 +87,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      *
      * @param string $attribute
      */
-    public function setPublishWorkflowPermission($attribute)
+    public function setPublishWorkflowPermission($attribute): void
     {
         $this->publishWorkflowPermission = $attribute;
     }
@@ -110,7 +95,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function load($configuration)
+    public function load($configuration): BlockInterface
     {
         if (!$this->support($configuration)) {
             // sanity check, the chain loader should already have checked.
@@ -133,7 +118,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function support($configuration)
+    public function support($configuration): bool
     {
         if (!is_array($configuration)) {
             return false;
@@ -154,7 +139,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      * @return BlockInterface|null the block at that location or null if no document or not a
      *                             BlockInterface at that location, or the block is not published
      */
-    protected function findByName($name)
+    protected function findByName($name): ?BlockInterface
     {
         $path = $this->determineAbsolutePath($name);
 
@@ -163,7 +148,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
                 $this->logger->debug("Block '$name' is not an absolute path and there is no 'contentDocument' in the request attributes");
             }
 
-            return;
+            return null;
         }
 
         $block = $this->getObjectManager()->find(null, $path);
@@ -177,7 +162,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
                 $this->logger->debug("Block '$name' at path '$path' is not published");
             }
 
-            return;
+            return null;
         }
 
         return $block;
@@ -190,7 +175,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      *
      * @return bool
      */
-    protected function isAbsolutePath($path)
+    protected function isAbsolutePath($path): bool
     {
         return is_string($path)
             && strlen($path) > 0
@@ -206,7 +191,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      *
      * @return string|null absolute PHPCR path if possible, null if not determined
      */
-    protected function determineAbsolutePath($name)
+    protected function determineAbsolutePath($name): ?string
     {
         if ($this->isAbsolutePath($name)) {
             return $name;
@@ -221,7 +206,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
             ;
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -237,7 +222,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      *
      * @throws BlockNotFoundException if there is no type defined for the empty block
      */
-    private function getNotFoundBlock($name, $message = null)
+    private function getNotFoundBlock(string $name, ?string $message = null): EmptyBlock
     {
         if (null === $this->getEmptyBlockType()) {
             throw new BlockNotFoundException($message);
@@ -258,7 +243,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
     /**
      * @return string|null service id of the empty block service, null if not set
      */
-    public function getEmptyBlockType()
+    public function getEmptyBlockType(): ?string
     {
         return $this->emptyBlockType;
     }
@@ -266,7 +251,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
     /**
      * @param string $type service id of the empty block service
      */
-    public function setEmptyBlockType($type = null)
+    public function setEmptyBlockType(?string $type = null): void
     {
         $this->emptyBlockType = $type;
     }
@@ -274,9 +259,9 @@ class PhpcrBlockLoader implements BlockLoaderInterface
     /**
      * Get the object manager from the registry, based on the current managerName.
      *
-     * @return \Doctrine\Common\Persistence\ObjectManager
+     * @return \Doctrine\Persistence\ObjectManager
      */
-    protected function getObjectManager()
+    protected function getObjectManager(): ObjectManager
     {
         return $this->managerRegistry->getManager($this->managerName);
     }

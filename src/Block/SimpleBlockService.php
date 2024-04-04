@@ -17,17 +17,18 @@ use Sonata\BlockBundle\Block\Service\BlockServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Twig\Environment;
 
 class SimpleBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected $template = '@CmfBlock/Block/block_simple.html.twig';
+    protected string $template = '@CmfBlock/Block/block_simple.html.twig';
 
-    public function __construct($name, $templating, $template = null)
+    public function __construct(Environment $templating, ?string $template = null)
     {
         if ($template) {
             $this->template = $template;
         }
-        parent::__construct($name, $templating);
+        parent::__construct($templating);
     }
 
     /**
@@ -67,7 +68,7 @@ class SimpleBlockService extends AbstractBlockService implements BlockServiceInt
     /**
      * @param string $template
      */
-    public function setTemplate($template)
+    public function setTemplate(?string $template): void
     {
         $this->template = $template;
     }
