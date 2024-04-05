@@ -36,7 +36,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
 
     protected ?LoggerInterface $logger;
 
-    protected string $managerName;
+    protected ?string $managerName;
 
     protected ManagerRegistry $managerRegistry;
 
@@ -76,7 +76,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
      *
      * @param string $managerName
      */
-    public function setManagerName($managerName): void
+    public function setManagerName(?string $managerName): void
     {
         $this->managerName = $managerName;
     }
