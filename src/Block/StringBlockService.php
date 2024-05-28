@@ -21,11 +21,11 @@ use Twig\Environment;
 
 class StringBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected string $template = '@CmfBlock/Block/block_string.html.twig';
+    protected $template = '@CmfBlock/Block/block_string.html.twig';
 
     public function __construct(Environment $templating, ?string $template = null)
     {
-        parent::__construct($templating);
+        parent::__construct($name, $templating);
 
         if ($template) {
             $this->template = $template;
@@ -35,7 +35,7 @@ class StringBlockService extends AbstractBlockService implements BlockServiceInt
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockContextInterface $blockContext, Response $response = null): Response
+    public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         if (!$response) {
             $response = new Response();
@@ -69,7 +69,7 @@ class StringBlockService extends AbstractBlockService implements BlockServiceInt
     /**
      * @param string $template
      */
-    public function setTemplate(?string $template)
+    public function setTemplate($template)
     {
         $this->template = $template;
     }

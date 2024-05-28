@@ -23,14 +23,25 @@ use Twig\Environment;
 
 class ContainerBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected BlockRendererInterface $blockRenderer;
+    /**
+     * @var BlockRendererInterface
+     */
+    protected $blockRenderer;
 
-    protected string $template = '@CmfBlock/Block/block_container.html.twig';
+    /**
+     * @var string
+     */
+    protected $template = '@CmfBlock/Block/block_container.html.twig';
 
-
-    public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, ?string $template = null)
+    /**
+     * @param string                 $name
+     * @param EngineInterface        $templating
+     * @param BlockRendererInterface $blockRenderer
+     * @param string|null            $template      to overwrite the default template
+     */
+    public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, $template = null)
     {
-        parent::__construct($templating);
+        parent::__construct($name, $templating);
 
         $this->blockRenderer = $blockRenderer;
 
@@ -86,8 +97,17 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
             'child_class' => '',
         ]);
 
-        $resolver->addAllowedTypes('divisible_by', 'integer');
-        $resolver->addAllowedTypes('divisible_class', 'string');
-        $resolver->addAllowedTypes('child_class', 'string');
+        if (method_exists($resolver, 'setDefault')) {
+            // Symfony >2.6
+            $resolver->addAllowedTypes('divisible_by', 'integer');
+            $resolver->addAllowedTypes('divisible_class', 'string');
+            $resolver->addAllowedTypes('child_class', 'string');
+        } else {
+            $resolver->addAllowedTypes([
+                'divisible_by' => ['integer'],
+                'divisible_class' => ['string'],
+                'child_class' => ['string'],
+            ]);
+        }
     }
 }

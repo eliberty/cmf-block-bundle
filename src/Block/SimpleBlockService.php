@@ -21,14 +21,14 @@ use Twig\Environment;
 
 class SimpleBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected string $template = '@CmfBlock/Block/block_simple.html.twig';
+    protected $template = '@CmfBlock/Block/block_simple.html.twig';
 
-    public function __construct(Environment $templating, ?string $template = null)
+    public function __construct(Environment $templating, $template = null)
     {
         if ($template) {
             $this->template = $template;
         }
-        parent::__construct($templating);
+        parent::__construct($name, $templating);
     }
 
     /**
@@ -68,7 +68,7 @@ class SimpleBlockService extends AbstractBlockService implements BlockServiceInt
     /**
      * @param string $template
      */
-    public function setTemplate(?string $template): void
+    public function setTemplate($template)
     {
         $this->template = $template;
     }

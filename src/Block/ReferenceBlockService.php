@@ -22,9 +22,9 @@ use Twig\Environment;
 
 class ReferenceBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected BlockRendererInterface $blockRenderer;
+    protected $blockRenderer;
 
-    protected BlockContextManagerInterface $blockContextManager;
+    protected $blockContextManager;
 
     /**
      * @param string                       $name
@@ -34,7 +34,7 @@ class ReferenceBlockService extends AbstractBlockService implements BlockService
      */
     public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, BlockContextManagerInterface $blockContextManager)
     {
-        parent::__construct($templating);
+        parent::__construct($name, $templating);
         $this->blockRenderer = $blockRenderer;
         $this->blockContextManager = $blockContextManager;
     }
@@ -42,7 +42,7 @@ class ReferenceBlockService extends AbstractBlockService implements BlockService
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockContextInterface $blockContext, Response $response = null): Response
+    public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         if (!$response) {
             $response = new Response();
