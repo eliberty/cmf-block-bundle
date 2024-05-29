@@ -41,7 +41,7 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
      */
     public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, $template = null)
     {
-        parent::__construct($name, $templating);
+        parent::__construct($templating);
 
         $this->blockRenderer = $blockRenderer;
 

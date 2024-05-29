@@ -17,6 +17,7 @@ use Sonata\BlockBundle\Block\Service\BlockServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Twig\Environment;
 
 /**
  * The menu block service renders the template with the specified menu node.
@@ -27,9 +28,9 @@ class MenuBlockService extends AbstractBlockService implements BlockServiceInter
 {
     protected $template = '@CmfBlock/Block/block_menu.html.twig';
 
-    public function __construct($templating, $template = null)
+    public function __construct(Environment $templating, $template = null)
     {
-        parent::__construct($name, $templating);
+        parent::__construct($templating);
 
         if ($template) {
             $this->template = $template;

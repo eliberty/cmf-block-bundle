@@ -25,7 +25,7 @@ class StringBlockService extends AbstractBlockService implements BlockServiceInt
 
     public function __construct(Environment $templating, ?string $template = null)
     {
-        parent::__construct($name, $templating);
+        parent::__construct($templating);
 
         if ($template) {
             $this->template = $template;

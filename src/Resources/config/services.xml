@@ -8,38 +8,38 @@
 
         <service id="cmf.block.simple" class="Symfony\Cmf\Bundle\BlockBundle\Block\SimpleBlockService">
             <tag name="sonata.block" />
-            <argument type="service" id="sonata.templating" />
+            <argument type="service" id="twig" />
         </service>
 
         <service id="cmf.block.string" class="Symfony\Cmf\Bundle\BlockBundle\Block\StringBlockService">
             <tag name="sonata.block" />
-            <argument type="service" id="sonata.templating" />
+            <argument type="service" id="twig" />
         </service>
 
         <service id="cmf.block.container" class="Symfony\Cmf\Bundle\BlockBundle\Block\ContainerBlockService">
             <tag name="sonata.block" />
-            <argument type="service" id="sonata.templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="sonata.block.renderer" />
             <argument/><!-- for template construct -->
         </service>
 
         <service id="cmf.block.reference" class="Symfony\Cmf\Bundle\BlockBundle\Block\ReferenceBlockService">
             <tag name="sonata.block" />
-            <argument type="service" id="sonata.templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="sonata.block.renderer" />
             <argument type="service" id="sonata.block.context_manager" />
         </service>
 
         <service id="cmf.block.action" class="Symfony\Cmf\Bundle\BlockBundle\Block\ActionBlockService">
             <tag name="sonata.block" />
-            <argument type="service" id="sonata.templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="fragment.handler" />
             <argument type="service" id="request_stack" />
         </service>
 
         <service id="cmf.block.slideshow" class="Symfony\Cmf\Bundle\BlockBundle\Block\ContainerBlockService">
             <tag name="sonata.block" />
-            <argument type="service" id="sonata.templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="sonata.block.renderer" />
             <argument>@CmfBlock/Block/block_slideshow.html.twig</argument>
         </service>
