@@ -179,7 +179,7 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
     /**
      * {@inheritdoc}
      */
-    public function setPublishable(bool $publishable): bool
+    public function setPublishable($publishable): bool
     {
         return $this->publishable = (bool) $publishable;
     }
