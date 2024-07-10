@@ -26,7 +26,7 @@
         "symfony/framework-bundle": "^4.0",
         "doctrine/phpcr-bundle": "^2.5",
         "doctrine/phpcr-odm": "^1.4 || ^2.0",
-        "sonata-project/block-bundle": "^3.11 || ^4",
+        "sonata-project/block-bundle": "^4",
         "eliberty/cmf-core-bundle": "^2.500"
     },
     "require-dev": {

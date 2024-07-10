@@ -26,7 +26,7 @@ use Twig\Environment;
  */
 class MenuBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected $template = '@CmfBlock/Block/block_menu.html.twig';
+    protected ?string $template = '@CmfBlock/Block/block_menu.html.twig';
 
     public function __construct(Environment $templating, $template = null)
     {
@@ -40,7 +40,7 @@ class MenuBlockService extends AbstractBlockService implements BlockServiceInter
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, ?Response $response = null): Response
     {
         $block = $blockContext->getBlock();
 
@@ -54,7 +54,7 @@ class MenuBlockService extends AbstractBlockService implements BlockServiceInter
         return $this->renderResponse(
             $blockContext->getTemplate(),
             [
-                'menu' => $menuNode->getId(),
+                'menu'  => $menuNode->getId(),
                 'block' => $blockContext->getBlock(),
             ],
             $response
@@ -64,12 +64,12 @@ class MenuBlockService extends AbstractBlockService implements BlockServiceInter
     /**
      * {@inheritdoc}
      */
-    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    public function setDefaultSettings(OptionsResolverInterface $resolver): void
     {
         $this->configureSettings($resolver);
     }
 
-    public function configureSettings(OptionsResolver $resolver)
+    public function configureSettings(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'template' => $this->template,
@@ -79,7 +79,7 @@ class MenuBlockService extends AbstractBlockService implements BlockServiceInter
     /**
      * @param string $template
      */
-    public function setTemplate($template)
+    public function setTemplate(?string $template): void
     {
         $this->template = $template;
     }

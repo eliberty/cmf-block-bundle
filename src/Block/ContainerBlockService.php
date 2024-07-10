@@ -39,7 +39,7 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
      * @param BlockRendererInterface $blockRenderer
      * @param string|null            $template      to overwrite the default template
      */
-    public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, $template = null)
+    public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, ?string $template = null)
     {
         parent::__construct($templating);
 
@@ -53,7 +53,7 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, ?Response $response = null): Response
     {
         if (!$response) {
             $response = new Response();
@@ -69,7 +69,7 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
 
         if ($block->getEnabled()) {
             return $this->renderResponse($settings['template'], [
-                'block' => $block,
+                'block'    => $block,
                 'settings' => $settings,
             ], $response);
         }
@@ -80,7 +80,7 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
     /**
      * {@inheritdoc}
      */
-    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    public function setDefaultSettings(OptionsResolverInterface $resolver): void
     {
         $this->configureSettings($resolver);
     }
@@ -88,13 +88,13 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
     /**
      * {@inheritdoc}
      */
-    public function configureSettings(OptionsResolver $resolver)
+    public function configureSettings(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'template' => $this->template,
-            'divisible_by' => 0,
+            'template'        => $this->template,
+            'divisible_by'    => 0,
             'divisible_class' => '',
-            'child_class' => '',
+            'child_class'     => '',
         ]);
 
         if (method_exists($resolver, 'setDefault')) {
@@ -104,9 +104,9 @@ class ContainerBlockService extends AbstractBlockService implements BlockService
             $resolver->addAllowedTypes('child_class', 'string');
         } else {
             $resolver->addAllowedTypes([
-                'divisible_by' => ['integer'],
+                'divisible_by'    => ['integer'],
                 'divisible_class' => ['string'],
-                'child_class' => ['string'],
+                'child_class'     => ['string'],
             ]);
         }
     }

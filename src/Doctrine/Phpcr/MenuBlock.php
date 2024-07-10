@@ -23,12 +23,12 @@ class MenuBlock extends AbstractBlock
     /**
      * @var NodeInterface
      */
-    private $menuNode;
+    private ?NodeInterface $menuNode;
 
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): ?string
     {
         return 'cmf.block.menu';
     }
@@ -36,10 +36,8 @@ class MenuBlock extends AbstractBlock
     /**
      * Get the target menu node. This will be null if not set or the target was
      * removed.
-     *
-     * @return NodeInterface|null
      */
-    public function getMenuNode()
+    public function getMenuNode(): ?NodeInterface
     {
         return $this->menuNode;
     }
@@ -53,13 +51,9 @@ class MenuBlock extends AbstractBlock
      *
      * @return MenuBlock $this
      */
-    public function setMenuNode($menuNode = null)
+    public function setMenuNode(?NodeInterface $menuNode = null): self
     {
-        if (null === $menuNode || $menuNode instanceof NodeInterface) {
-            $this->menuNode = $menuNode;
-        } else {
-            throw new \InvalidArgumentException('$menuNode must be an instane of NodeInterface');
-        }
+        $this->menuNode = $menuNode;
 
         return $this;
     }

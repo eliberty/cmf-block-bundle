@@ -18,30 +18,22 @@ use Sonata\BlockBundle\Model\BlockInterface;
  */
 class ReferenceBlock extends AbstractBlock
 {
-    private ?\Sonata\BlockBundle\Model\BlockInterface $referencedBlock = null;
+    private ?BlockInterface $referencedBlock = null;
 
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): ?string
     {
         return 'cmf.block.reference';
     }
 
-    /**
-     * @return BlockInterface|null
-     */
-    public function getReferencedBlock()
+    public function getReferencedBlock(): ?BlockInterface
     {
         return $this->referencedBlock;
     }
 
-    /**
-     * @param BlockInterface $referencedBlock
-     *
-     * @return $this
-     */
-    public function setReferencedBlock(BlockInterface $referencedBlock)
+    public function setReferencedBlock(BlockInterface $referencedBlock): self
     {
         $this->referencedBlock = $referencedBlock;
 

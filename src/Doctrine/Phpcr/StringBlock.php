@@ -18,15 +18,12 @@ use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
  */
 class StringBlock extends AbstractBlock implements TranslatableInterface
 {
-    /**
-     * @var string
-     */
-    protected $body;
+    protected ?string $body;
 
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): ?string
     {
         return 'cmf.block.string';
     }
@@ -38,7 +35,7 @@ class StringBlock extends AbstractBlock implements TranslatableInterface
      *
      * @return $this
      */
-    public function setBody($body)
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 
@@ -50,7 +47,7 @@ class StringBlock extends AbstractBlock implements TranslatableInterface
      *
      * @return string
      */
-    public function getBody()
+    public function getBody(): ?string
     {
         return $this->body;
     }

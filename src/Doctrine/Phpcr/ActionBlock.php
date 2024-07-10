@@ -24,7 +24,7 @@ class ActionBlock extends AbstractBlock
      *
      * @var string
      */
-    protected $actionName;
+    protected ?string $actionName;
 
     /**
      * List of request attributes or parameters to pass to the subrequest when
@@ -38,12 +38,12 @@ class ActionBlock extends AbstractBlock
      *
      * @var string[]
      */
-    protected $requestParams = ['_locale'];
+    protected ?array $requestParams = ['_locale'];
 
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): ?string
     {
         return 'cmf.block.action';
     }
@@ -51,17 +51,12 @@ class ActionBlock extends AbstractBlock
     /**
      * @return string
      */
-    public function getActionName()
+    public function getActionName(): ?string
     {
         return $this->actionName;
     }
 
-    /**
-     * @param string $actionName
-     *
-     * @return $this
-     */
-    public function setActionName($actionName)
+    public function setActionName(?string $actionName): self
     {
         $this->actionName = $actionName;
 
@@ -71,7 +66,7 @@ class ActionBlock extends AbstractBlock
     /**
      * Initialize default values if not explicitly set.
      */
-    public function mergeDefaults()
+    public function mergeDefaults(): void
     {
         if (null === $this->actionName) {
             $this->actionName = $this->getDefaultActionName();
@@ -89,7 +84,7 @@ class ActionBlock extends AbstractBlock
      *
      * @return $this
      */
-    public function setRequestParams(array $params)
+    public function setRequestParams(array $params): self
     {
         $this->requestParams = $params;
 
@@ -102,7 +97,7 @@ class ActionBlock extends AbstractBlock
      *
      * @return array
      */
-    public function getRequestParams()
+    public function getRequestParams(): array
     {
         return $this->requestParams;
     }
@@ -123,13 +118,13 @@ class ActionBlock extends AbstractBlock
      *
      * @return array list of arguments to pass to the subrequest
      */
-    public function resolveRequestParams(Request $request, BlockContextInterface $blockContext)
+    public function resolveRequestParams(Request $request, BlockContextInterface $blockContext): array
     {
         $params = [];
         foreach ($this->getRequestParams() as $param) {
             $params[$param] = $request->get($param);
         }
-        $params['block'] = $this;
+        $params['block']        = $this;
         $params['blockContext'] = $blockContext;
 
         return $params;
@@ -140,8 +135,8 @@ class ActionBlock extends AbstractBlock
      *
      * @return string|null
      */
-    public function getDefaultActionName()
+    public function getDefaultActionName(): ?string
     {
-        return;
+        return null;
     }
 }

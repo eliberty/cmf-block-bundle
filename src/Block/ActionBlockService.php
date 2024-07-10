@@ -13,7 +13,6 @@ namespace Symfony\Cmf\Bundle\BlockBundle\Block;
 
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
-use Sonata\BlockBundle\Templating\TwigEngine;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -24,7 +23,7 @@ use Twig\Environment;
 
 class ActionBlockService extends AbstractBlockService
 {
-    private \Symfony\Component\HttpFoundation\RequestStack $requestStack;
+    private RequestStack $requestStack;
 
     /**
      * @var FragmentHandler
@@ -40,23 +39,20 @@ class ActionBlockService extends AbstractBlockService
     public function __construct(Environment $templating, FragmentHandler $renderer, RequestStack $requestStack)
     {
         parent::__construct($templating);
-        $this->renderer = $renderer;
+        $this->renderer     = $renderer;
         $this->requestStack = $requestStack;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, ?Response $response = null): Response
     {
         /** @var $block ActionBlock */
         $block = $blockContext->getBlock();
 
         if (!$block->getActionName()) {
-            throw new \RuntimeException(sprintf(
-                'ActionBlock with id "%s" does not have an action name defined, implement a default or persist it in the document.',
-                $block->getId()
-            ));
+            throw new \RuntimeException(sprintf('ActionBlock with id "%s" does not have an action name defined, implement a default or persist it in the document.', $block->getId()));
         }
 
         if (!$block->getEnabled()) {

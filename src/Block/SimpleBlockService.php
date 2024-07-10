@@ -21,7 +21,7 @@ use Twig\Environment;
 
 class SimpleBlockService extends AbstractBlockService implements BlockServiceInterface
 {
-    protected $template = '@CmfBlock/Block/block_simple.html.twig';
+    protected string $template = '@CmfBlock/Block/block_simple.html.twig';
 
     public function __construct(Environment $templating, $template = null)
     {
@@ -34,7 +34,7 @@ class SimpleBlockService extends AbstractBlockService implements BlockServiceInt
     /**
      * {@inheritdoc}
      */
-    public function execute(BlockContextInterface $blockContext, Response $response = null)
+    public function execute(BlockContextInterface $blockContext, ?Response $response = null): Response
     {
         if (!$response) {
             $response = new Response();
@@ -58,17 +58,14 @@ class SimpleBlockService extends AbstractBlockService implements BlockServiceInt
     /**
      * {@inheritdoc}
      */
-    public function configureSettings(OptionsResolver $resolver)
+    public function configureSettings(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'template' => $this->template,
         ]);
     }
 
-    /**
-     * @param string $template
-     */
-    public function setTemplate($template)
+    public function setTemplate(string $template)
     {
         $this->template = $template;
     }
