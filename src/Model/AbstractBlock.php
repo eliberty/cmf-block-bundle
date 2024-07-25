@@ -45,7 +45,7 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
     /**
      * @var int
      */
-    protected int $ttl = 86400;
+    protected ?int $ttl = 86400;
 
     protected array $settings = [];
 
@@ -56,7 +56,7 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
     /**
      * @var bool whether this content is publishable
      */
-    protected bool $publishable = true;
+    protected ?bool $publishable = true;
 
     /**
      * @var \DateTime|null publication start time
@@ -327,7 +327,7 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
      *
      * @return $this
      */
-    public function setTtl(int $ttl)
+    public function setTtl(?int $ttl)
     {
         $this->ttl = $ttl;
 
