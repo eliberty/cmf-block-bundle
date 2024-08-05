@@ -49,9 +49,9 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
 
     protected array $settings = [];
 
-    protected ?\DateTime $createdAt;
+    protected ?\DateTime $createdAt = null;
 
-    protected ?\DateTime $updatedAt;
+    protected ?\DateTime $updatedAt = null;
 
     /**
      * @var bool whether this content is publishable
@@ -61,12 +61,12 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
     /**
      * @var \DateTime|null publication start time
      */
-    protected ?\DateTime$publishStartDate;
+    protected ?\DateTime $publishStartDate = null;
 
     /**
      * @var \DateTime|null publication end time
      */
-    protected ?\DateTime $publishEndDate;
+    protected ?\DateTime $publishEndDate = null;
 
     /**
      * If you want your block model to be translated it has to implement TranslatableInterface
