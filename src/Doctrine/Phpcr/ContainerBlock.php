@@ -43,8 +43,10 @@ class ContainerBlock extends AbstractBlock
 
     /**
      * Get children.
+     * 
+     * NEXT_MAJOR: Restrict typehint to Collection.
      *
-     * @return ArrayCollection|ChildrenCollection
+     * @return Collection<int, BlockInterface>|array<BlockInterface> $children
      */
     public function getChildren()
     {
@@ -86,6 +88,8 @@ class ContainerBlock extends AbstractBlock
 
     /**
      * Alias to addChild to make the form layer happy.
+     * 
+     * @deprecated since sonata-project/block-bundle 4.18. Use addChild() instead, to remove.
      *
      * @param BlockInterface $children
      *
@@ -111,9 +115,16 @@ class ContainerBlock extends AbstractBlock
     }
 
     /**
-     * {@inheritdoc}
+     * NEXT_MAJOR: Remove use hasChild() instead.
+     *
+     * @deprecated since sonata-project/block-bundle 4.18. Use hasChild() instead, to remove.
      */
     public function hasChildren(): bool
+    {
+        return $this->hasChild();
+    }
+
+    public function hasChild(): bool
     {
         return \count($this->children) > 0;
     }
