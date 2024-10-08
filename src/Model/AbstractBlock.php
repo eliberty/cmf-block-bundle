@@ -229,10 +229,30 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
     }
 
     /**
+     * @return void
+     */
+    public function addChild(BlockInterface $child, $key = null)
+    {
+    }
+
+    public function hasChild(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return void
+     */
+    public function removeChild(BlockInterface $child)
+    {
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function addChildren(BlockInterface $children): void
     {
+        $this->addChild($children);
     }
 
     /**
@@ -248,7 +268,7 @@ abstract class AbstractBlock implements BlockInterface, PublishableInterface, Pu
      */
     public function hasChildren(): bool
     {
-        return false;
+        return $this->hasChild();
     }
 
     /**
