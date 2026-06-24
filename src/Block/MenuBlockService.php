@@ -16,7 +16,6 @@ use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Block\Service\BlockServiceInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Twig\Environment;
 
 /**
@@ -59,14 +58,6 @@ class MenuBlockService extends AbstractBlockService implements BlockServiceInter
             ],
             $response
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultSettings(OptionsResolverInterface $resolver): void
-    {
-        $this->configureSettings($resolver);
     }
 
     public function configureSettings(OptionsResolver $resolver): void

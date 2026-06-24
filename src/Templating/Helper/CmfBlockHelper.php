@@ -78,7 +78,7 @@ class CmfBlockHelper extends Helper
         return $this->sonataBlock->includeStylesheets($media);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'blocks';
     }

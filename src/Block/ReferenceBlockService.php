@@ -16,7 +16,6 @@ use Sonata\BlockBundle\Block\BlockContextManagerInterface;
 use Sonata\BlockBundle\Block\BlockRendererInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Block\Service\BlockServiceInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
@@ -26,11 +25,6 @@ class ReferenceBlockService extends AbstractBlockService implements BlockService
 
     protected BlockContextManagerInterface $blockContextManager;
 
-    /**
-     * @param EngineInterface              $templating
-     * @param BlockRendererInterface       $blockRenderer
-     * @param BlockContextManagerInterface $blockContextManager
-     */
     public function __construct(Environment $templating, BlockRendererInterface $blockRenderer, BlockContextManagerInterface $blockContextManager)
     {
         parent::__construct($templating);

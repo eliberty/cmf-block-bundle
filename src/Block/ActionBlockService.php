@@ -13,7 +13,6 @@ namespace Symfony\Cmf\Bundle\BlockBundle\Block;
 
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,12 +29,6 @@ class ActionBlockService extends AbstractBlockService
      */
     protected $renderer;
 
-    /**
-     * @param string          $name
-     * @param EngineInterface $templating
-     * @param FragmentHandler $renderer
-     * @param RequestStack    $requestStack
-     */
     public function __construct(Environment $templating, FragmentHandler $renderer, RequestStack $requestStack)
     {
         parent::__construct($templating);
