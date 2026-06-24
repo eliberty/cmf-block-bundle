@@ -66,7 +66,7 @@ class PhpcrBlockLoader implements BlockLoaderInterface
         ManagerRegistry $managerRegistry,
         AuthorizationCheckerInterface $publishWorkflowChecker,
         RequestStack $requestStack,
-        LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
         $emptyBlockType = null
     ) {
         $this->managerRegistry        = $managerRegistry;

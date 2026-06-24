@@ -31,7 +31,7 @@ class CmfBlockHelper extends Helper
 
     private ?\Psr\Log\LoggerInterface $logger = null;
 
-    public function __construct(SonataBlockHelper $sonataBlock, EmbedBlocksParser $parser, LoggerInterface $logger = null)
+    public function __construct(SonataBlockHelper $sonataBlock, EmbedBlocksParser $parser, ?LoggerInterface $logger = null)
     {
         $this->sonataBlock = $sonataBlock;
         $this->parser = $parser;
